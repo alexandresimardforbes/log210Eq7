@@ -16,6 +16,14 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+module ApiApp
+  class Application < Rails::Application
+  #.....
+  config.autoload_paths << Rails.root.join('lib')
+  #.....
+  end
+end
+
 module LAB210EQ7
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -31,3 +39,4 @@ module LAB210EQ7
     config.api_only = true
   end
 end
+
