@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def create
     user = User.new(user_params)
     if user.save
@@ -8,11 +9,24 @@ class UsersController < ApplicationController
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
   end
-end
 
-private
+  def update
+    fetch_user
+    if @user.update_attributes(user_params)
+      render json: { status: 'Mise à jour de usager réussis'}, status: :updated
+    else
+      render json: { errors: @user.errors.full_messages }, status: :bad_request
+    end
+  end
 
-def user_params
+  def fetch_user
+    @user = User.find_by_id(params[:id])
+  end
+
+  private
+
+  def user_params
   params.require(:user).permit(:email, :password, :password_confirmation,
                                :first_name, :last_name, :user_type)
+  end
 end
