@@ -13,7 +13,8 @@ class UsersController < ApplicationController
   def update
     fetch_user
     if @user.update_attributes(user_params)
-      render json: { status: 'Mise à jour de usager réussis'}, status: :updated
+      render json: @user, except: [:password_digest, :created_at,
+                                  :uuid, :updated_at]
     else
       render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
