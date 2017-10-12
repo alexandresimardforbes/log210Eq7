@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :fetch_user, only: %i[show update destroy]
+  before_action :fetch_user, only: %i[show update destroy create]
 
   # http: GET /users
   def index
@@ -9,26 +9,27 @@ class UsersController < ApplicationController
 
   # http: GET /users/:id
   def show
-    render json: @user, except: %i[password_digest created_at
-                                    updated_at]
+    json_response(@user)
   end
 
   # http: POST /users
   def create
-    user = User.new(user_params)
-    if user.save
-      render json: user, except: %i[password_digest created_at
-                                    updated_at]
+    new_user = User.new(user_params)
+    if permission_to_create?(new_user.user_type)
+      if new_user.save
+        json_response(new_user)
+      else
+        render json: { errors: new_user.errors.full_messages }, status: :bad_request
+      end
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: 'Vous n''avez pas les droits pour créer ce type d''usager' }, status: :bad_request
     end
   end
 
   # http: PATCH /users/:id
   def update
     if @user.update_attributes(user_params)
-      render json: @user, except: %i[password_digest created_at
-                                     updated_at]
+      json_response(@user)
     else
       render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
@@ -45,7 +46,6 @@ class UsersController < ApplicationController
 
   private
 
-
   def fetch_user
     @user = User.find_by_id(params[:id])
   end
@@ -57,6 +57,17 @@ class UsersController < ApplicationController
 
   def json_response(object, status = :ok)
     render json: object, status: status, except: %i[password_digest created_at
-                                   updated_at]
+                                                    updated_at]
+  end
+
+  def permission_to_create?(create_user_role)
+    @session_user = User.find_by_id(request.headers['Session-user-id'])
+    if @session_user.user_type == 'directeur'
+      return true
+    elsif @session_user.user_type == 'coordinateur' && create_user_role != 'directeur'
+      return true
+    else
+      return false
+    end
   end
 end
