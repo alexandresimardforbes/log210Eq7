@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # http: GET /users
   def index
-    users = User.all
+    users = User.all.where(disable: true)
     json_response(users)
   end
 
