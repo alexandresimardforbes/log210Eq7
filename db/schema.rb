@@ -10,17 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929184101) do
+ActiveRecord::Schema.define(version: 20171012170919) do
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.string "user_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "uuid"
-  end
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'bool' for column 'disable'
 
 end
