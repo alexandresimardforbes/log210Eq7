@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { LoginService } from '../login.service';
 import { UsersService } from '../users.service';
-import { User } from '../User';
+import { User, Role } from '../User';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class UserDetailsPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    protected userService: UsersService) { }
+    protected userService: UsersService,
+    protected login: LoginService) { }
 
   ngOnInit() {
     this.user = this.userService.getUser(+this.route.snapshot.paramMap.get('id'));
@@ -24,12 +26,18 @@ export class UserDetailsPageComponent implements OnInit {
 
   onSubmit()
   {
+    if(+this.route.snapshot.paramMap.get('id') === -1) this.userService.createUser(this.user);
     this.userService.setUser(this.user);
   }
 
   onReset()
   {
     this.user = this.userService.getUser(+this.route.snapshot.paramMap.get('id'));
+  }
+
+  canModify()
+  {
+    return this.login.getUser().role < this.user.role;
   }
 
 }

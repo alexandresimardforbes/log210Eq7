@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from './User';
+import { User, Role } from './User';
 import * as _ from 'lodash';
 
 
@@ -12,7 +12,7 @@ export class UsersService {
   {
     this.users = new Array();
     this.users.push( new User ('@mdo', 'jesus', 'mark.otto.1@etsmtl.net', 'Mark', 'Otto', 5) );
-    this.users.push( new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6) );
+    this.users.push( new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.director) );
     this.users.push( new User ('@twitter', 'jesus', 'Larry.thebird.1@etsmtl.net', 'Larry', 'the Bird', 7) );
     this.users.push( new User ('@mdo', 'jesus', 'mark.otto.1@etsmtl.net', 'Mark', 'Otto', 1) );
     this.users.push( new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 3) );
@@ -27,6 +27,7 @@ export class UsersService {
 
   public getUser(id: number): User
   {
+    if (id === -1) return User.createEmpty();
     return _.cloneDeep(this.users.find(e => e.id == id));
   }
 
@@ -34,4 +35,10 @@ export class UsersService {
   {
     this.users[this.users.findIndex(e => e.id == user.id)] = _.cloneDeep(user);
   }
+
+  public createUser(user: User)
+  {
+    this.users.push(_.cloneDeep(user));
+  }
+
 }

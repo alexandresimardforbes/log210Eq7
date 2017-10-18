@@ -4,54 +4,59 @@
       <div class="form-group">
         <label for="FirstName">First name</label>
         <input [(ngModel)]="user.firstName" #firstName="ngModel" type="text" class="form-control" id="firstName" name="firstName"
-          placeholder="firstName" required>
+        required>
       </div>
       <div class="form-group">
         <label for="LastName">Last name</label>
-        <input [(ngModel)]="user.lastName" #lastName="ngModel" type="text" class="form-control" id="lastName" name="lastName" placeholder="lastName"
-          required>
+        <input [(ngModel)]="user.lastName" #lastName="ngModel" type="text" class="form-control" id="lastName" name="lastName"
+        required>
       </div>
       <div class="form-group">
         <label for="UserName">Username</label>
-        <input [(ngModel)]="user.userName" #username="ngModel" type="text" class="form-control" id="userName" name="userName" placeholder="userName"
-          required>
+        <input [(ngModel)]="user.userName" #username="ngModel" type="text" class="form-control" id="userName" name="userName"
+        required>
       </div>
       <div class="form-group">
         <label for="Email">Email address</label>
-        <input [(ngModel)]="user.email" #email="ngModel" type="email" class="form-control" id="email" name="email" placeholder="email"
+        <input [(ngModel)]="user.email" #email="ngModel" type="email" class="form-control" id="email" name="email"
           required>
-      </div>
-      <div class="form-group">
-        <label for="Password">Password</label>
-        <input [(ngModel)]="user.password" #password="ngModel" type="password" class="form-control" id="password" name="password"
-          placeholder="password" required>
-      </div>
-      <label for="Rights">User Access Rights</label>
-      <fieldset class="form-group row">
-        <div class="col-sm-12">
-          <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              This guy can swear
-            </label>
         </div>
-        <div class="col-sm-12">
-          <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              This guy can pop cherries
-            </label>
+        <div class="form-group">
+          <label for="Password">Password</label>
+          <input [(ngModel)]="user.password" #password="ngModel" type="password" class="form-control" id="password" name="password"
+           required>
         </div>
-        <div class="col-sm-12">
-          <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              This guy can modify users
-            </label>
+        <div class="form-group">
+          <label for="FirstName">Activated</label>
+          <input [(ngModel)]="user.activated" #firstName="ngModel" type="checkbox" id="activated" name="activated" required
+          [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
         </div>
-        <div class="col-sm-12">
+        <label for="Rights">User Role</label>
+      <fieldset class="form-group">
+        <div class="form-check">
           <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              This guy can bench more than 200 pounds
-            </label>
+            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" [disabled]="!(this.login.getUser().role === 1 && this.user.role >= this.login.getUser().role)">
+            Director
+          </label>
         </div>
+        <div class="form-check">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+            Coordonnator
+          </label>
+        </div>
+        <div class="form-check">
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+            Assistant-Coordonnator
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios4" value="option4" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+              Intervenant
+            </label>
+          </div>
       </fieldset>
       <div class="text-center">
         <button type="submit" class="btn btn-primary m-1" (click)="onSubmit()">save</button>

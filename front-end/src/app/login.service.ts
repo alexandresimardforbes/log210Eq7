@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from './User';
+import { User, Role } from './User';
 
 @Injectable()
 export class LoginService {
-  private authenticated: boolean = false;
+  private authenticated: boolean = true;
+  private user: User = new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.coordonator);
 
   constructor() { }
 
@@ -21,5 +22,12 @@ export class LoginService {
   {
     return this.authenticated;
   }
+
+  public getUser()
+  {
+    return this.user;
+  }
+
+
 
 }
