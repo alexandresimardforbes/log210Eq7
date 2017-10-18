@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nomOrganisation: 
+  noCivique: 1
+  rue: 
+  ville: 
+  province: 
+  codePostal: 
+  telephoneBureau: 
+  telephoneTelecopieur: 
+  courriel: 
+  siteWeb: 
+
+two:
+  nomOrganisation: 
+  noCivique: 1
+  rue: 
+  ville: 
+  province: 
+  codePostal: 
+  telephoneBureau: 
+  telephoneTelecopieur: 
+  courriel: 
+  siteWeb: 
