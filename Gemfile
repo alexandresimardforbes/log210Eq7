@@ -13,8 +13,10 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
+gem 'jwt'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'simple_command'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
