@@ -1,0 +1,2 @@
+class OrganismeReferent < ApplicationRecord
+end
