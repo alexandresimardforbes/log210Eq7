@@ -32,7 +32,7 @@ module LAB210EQ7
   end
 end
 
-module YourApp
+module LAB210EQ7
   class Application < Rails::Application
 
     # ...
