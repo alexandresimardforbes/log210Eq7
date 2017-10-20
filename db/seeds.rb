@@ -11,7 +11,10 @@
     @userRoot = User.create(email: 'a@a.com', password: 'Password', password_confirmation: 'Password',
                             first_name: 'Jacque', last_name: 'Pellerin', user_type: 1, disable: false)
 
-    @userRoot.save
+    @userRootCoord = User.create(email: 'a@a.com', password: 'Password', password_confirmation: 'Password',
+                            first_name: 'Jacque', last_name: 'Pellerin', user_type: 2, disable: false)
 
+    @userRoot.save
+    @userRoot.save
 
 
