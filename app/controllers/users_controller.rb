@@ -15,8 +15,8 @@ class UsersController < ApplicationController
 
   # http: POST /users
   def create
-    if permission_to_create?
     new_user = User.new(user_params)
+    if permission_to_create?(new_user.user_type)
       if new_user.save
         json_response(new_user)
       else
