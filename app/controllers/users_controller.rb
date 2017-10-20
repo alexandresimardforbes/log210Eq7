@@ -15,8 +15,8 @@ class UsersController < ApplicationController
 
   # http: POST /users
   def create
-    if permission_to_create?
     new_user = User.new(user_params)
+    if permission_to_create?(new_user.user_type)
       if new_user.save
         json_response(new_user)
       else
@@ -62,9 +62,9 @@ class UsersController < ApplicationController
 
   def permission_to_create?(create_user_role)
     @session_user = User.find_by_id(request.headers['Session-user-id'])
-    if @session_user.user_type == 'directeur'
+    if @session_user.user_type == 1
       return true
-    elsif @session_user.user_type == 'coordinateur' && create_user_role != 'directeur'
+    elsif @session_user.user_type == 2 && create_user_role != 1
       return true
     else
       return false
