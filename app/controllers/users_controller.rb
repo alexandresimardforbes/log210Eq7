@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :fetch_user, only: %i[show update destroy create]
+  skip_before_action :authenticate_request
 
   # http: GET /users
   def index
