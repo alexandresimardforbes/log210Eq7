@@ -15,12 +15,15 @@ class UsersController < ApplicationController
 
   # http: POST /users
   def create
+    if permission_to_create?
     new_user = User.new(user_params)
       if new_user.save
         json_response(new_user)
       else
         render json: { errors: new_user.errors.full_messages }, status: :bad_request
       end
+    else
+    end
   end
 
   # http: PATCH /users/:id
