@@ -31,6 +31,6 @@ export class UsersPageComponent implements OnInit {
 
   protected canCreate() 
   {
-    return this.login.getUser().role <= Role.coordonator;
+    return this.login.getUser().user_type <= Role.coordonator;
   }
 }

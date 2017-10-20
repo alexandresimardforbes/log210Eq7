@@ -1,29 +1,27 @@
 export class User {
-    public userName: string = '';
     public password: string = '';
-    public confirmPassword: string = '';
+    public password_confirmation: string = '';
     public email: string = '';
-    public firstName: string = '';
-    public lastName: string = '';
+    public first_name: string = '';
+    public last_name: string = '';
     public id: number;
-    public activated: boolean;
-    public role: Role
+    public disable: boolean;
+    public user_type: Role
 
-    constructor(userName, password, email, firstName, lastName, id, role = Role.coordonator, activated = true)
+    constructor(password, email, firstName, lastName, id, user_type = Role.coordonator, disable = false)
     {
-        this.userName = userName;
         this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.first_name = firstName;
+        this.last_name = lastName;
         this.id = id;
-        this.activated = activated;
-        this.role = role;
+        this.disable = disable;
+        this.user_type = user_type;
     }
 
     static createEmpty()
     {
-        return new User('', '', '', '', '', 55);
+        return new User('', '', '', '', 55);
     }
 }
 

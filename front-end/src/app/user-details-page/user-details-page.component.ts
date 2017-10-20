@@ -41,7 +41,7 @@ export class UserDetailsPageComponent implements OnInit {
 
   canModify()
   {
-    return this.login.getUser().role < this.user.role;
+    return this.login.getUser().user_type < this.user.user_type;
   }
 
 }
