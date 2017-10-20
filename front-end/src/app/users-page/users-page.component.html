@@ -11,7 +11,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of userService.getUsers(); index as i" (click)="onUserClicked(user)" [ngClass]="{'text-danger' :!user.activated}">
+              <tr *ngFor="let user of users; index as i" (click)="onUserClicked(user)" [ngClass]="{'text-danger' :!user.activated}">
                 <th scope="row">{{i+1}}</th>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
