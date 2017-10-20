@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-banner',
@@ -8,14 +8,14 @@ import { LoginService } from '../login.service';
 })
 export class BannerComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   protected onLogout()
   {
-    this.loginService.logout();
+    this.authService.logout();
   }
 
 }

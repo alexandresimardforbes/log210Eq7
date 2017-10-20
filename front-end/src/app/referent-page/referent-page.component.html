@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-block">
+      <table class="table table-hover borderless">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Prenom</th>
+              <th>Nom</th>
+              <th>Titre</th>
+              <th>Courriel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ref of referentsService.getAll(); index as i" (click)="onReferentClicked(ref)">
+              <th scope="row">{{i+1}}</th>
+              <td>{{ref.prenom}}</td>
+              <td>{{ref.nom}}</td>
+              <td>{{ref.titre}}</td>
+              <td>{{ref.courriel}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary m-2" (click)="onCreateReferent()" [disabled]='!canCreate()'>Create</button>
+          </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { AuthService } from '../auth.service';
 import { User } from '../User';
 
 @Component({
@@ -10,7 +10,7 @@ import { User } from '../User';
 export class LoginPageComponent implements OnInit {
   user: User;
 
-  constructor(private loginService: LoginService) 
+  constructor(private authService: AuthService) 
   {
     this.user = User.createEmpty();
   }
@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
   onSubmit() { 
     this.submitted = true;
     console.log(this.user)
-    this.loginService.login(this.user);
+    this.authService.login(this.user);
   }
 
 }

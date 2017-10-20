@@ -1,7 +1,7 @@
-<div *ngIf="loginService.isAuthenticated()" class="app-wrapper" >
+<div *ngIf="authService.isAuthenticated()" class="app-wrapper" >
     <app-banner></app-banner>
     <div class="container" id="main-body">
         <router-outlet></router-outlet>
     </div>
 </div>
-<app-login-page *ngIf="!loginService.isAuthenticated()"></app-login-page>
+<app-login-page *ngIf="!authService.isAuthenticated()"></app-login-page>

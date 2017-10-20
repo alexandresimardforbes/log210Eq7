@@ -1,6 +1,7 @@
 export class User {
     public userName: string = '';
     public password: string = '';
+    public confirmPassword: string = '';
     public email: string = '';
     public firstName: string = '';
     public lastName: string = '';

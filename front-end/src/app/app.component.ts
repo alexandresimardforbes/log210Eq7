@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BannerComponent } from './banner/banner.component';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { UsersService } from './users.service';
 
@@ -8,12 +8,12 @@ import { UsersService } from './users.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [LoginService, UsersService]
+  providers: [UsersService]
 })
 export class AppComponent {
   title = 'app';
 
-  constructor(protected loginService: LoginService)
+  constructor(protected authService: AuthService)
   {
 
   }

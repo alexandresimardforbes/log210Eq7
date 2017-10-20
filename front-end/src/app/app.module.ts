@@ -2,6 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
+import { ReferentsService } from './referents.service';
+import { OrganismesService } from './organismes.service';
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './banner/banner.component';
@@ -9,13 +14,20 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
-
+import { OrganismePageComponent } from './organisme-page/organisme-page.component';
+import { ReferentPageComponent } from './referent-page/referent-page.component';
+import { ReferentDetailsPageComponent } from './referent-details-page/referent-details-page.component';
+import { OrganismeDetailsPageComponent } from './organisme-details-page/organisme-details-page.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomePageComponent },
-  { path: 'users', component: UsersPageComponent },
-  { path: 'user/:id', component: UserDetailsPageComponent },
-  { path: '',   redirectTo: '/home', pathMatch: 'full' }
+  { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersPageComponent, canActivate: [AuthGuard] },
+  { path: 'user/:id', component: UserDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismes', component: OrganismePageComponent, canActivate: [AuthGuard] },
+  { path: 'referents', component: ReferentPageComponent, canActivate: [AuthGuard] },
+  { path: 'referents/:id', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismes/:id', component: OrganismeDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   /* { path: '**', component: PageNotFoundComponent } */
 ];
 
@@ -26,17 +38,22 @@ const appRoutes: Routes = [
     LoginPageComponent,
     UsersPageComponent,
     HomePageComponent,
-    UserDetailsPageComponent
+    UserDetailsPageComponent,
+    OrganismePageComponent,
+    ReferentPageComponent,
+    ReferentDetailsPageComponent,
+    OrganismeDetailsPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    AuthModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService, ReferentsService, OrganismesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

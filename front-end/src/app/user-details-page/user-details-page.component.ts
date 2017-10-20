@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { LoginService } from '../login.service';
+import { AuthService } from '../auth.service';
 import { UsersService } from '../users.service';
 import { User, Role } from '../User';
 
@@ -18,7 +18,7 @@ export class UserDetailsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     protected userService: UsersService,
-    protected login: LoginService) { }
+    protected login: AuthService) { }
 
   ngOnInit() {
     this.user = this.userService.getUser(+this.route.snapshot.paramMap.get('id'));

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from '../users.service';
-import { LoginService } from '../login.service';
+import { AuthService } from '../auth.service';
 import { User, Role } from '../User';
 
 @Component({
@@ -11,7 +11,7 @@ import { User, Role } from '../User';
 })
 export class UsersPageComponent implements OnInit {
 
-  constructor(protected userService: UsersService, private router: Router, private login: LoginService ) { }
+  constructor(protected userService: UsersService, private router: Router, private login: AuthService ) { }
 
 
   ngOnInit() {

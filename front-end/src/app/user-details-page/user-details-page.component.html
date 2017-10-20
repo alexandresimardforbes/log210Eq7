@@ -12,11 +12,6 @@
         required>
       </div>
       <div class="form-group">
-        <label for="UserName">Username</label>
-        <input [(ngModel)]="user.userName" #username="ngModel" type="text" class="form-control" id="userName" name="userName"
-        required>
-      </div>
-      <div class="form-group">
         <label for="Email">Email address</label>
         <input [(ngModel)]="user.email" #email="ngModel" type="email" class="form-control" id="email" name="email"
           required>
@@ -24,6 +19,11 @@
         <div class="form-group">
           <label for="Password">Password</label>
           <input [(ngModel)]="user.password" #password="ngModel" type="password" class="form-control" id="password" name="password"
+           required>
+        </div>
+        <div class="form-group">
+          <label for="Password">Confirm Password</label>
+          <input [(ngModel)]="user.confirmPassword" #password="ngModel" type="confirmPassword" class="form-control" id="confirmPassword" name="confirmPassword"
            required>
         </div>
         <div class="form-group">
