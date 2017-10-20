@@ -1,18 +1,18 @@
 class OrganismeReferentsController < ApplicationController
   before_action :fetch_org_ref, only: %i[show update destroy create]
 
-  # http: GET /users
+  # http: GET /organisme_referents
   def index
     organismes_refs = OrganismeReferent.all.where(disable: false)
     json_response(organismes_refs)
   end
 
-  # http: GET /users/:id
+  # http: GET /organisme_referents/:id
   def show
     json_response(@current_org_ref)
   end
 
-  # http: POST /users
+  # http: POST /organisme_referents
   def create
     new_organisme_ref = OrganismeReferent.new(user_params)
     if new_organisme_ref.save
@@ -22,7 +22,7 @@ class OrganismeReferentsController < ApplicationController
     end
   end
 
-  # http: PATCH /users/:id
+  # http: PATCH /organisme_referents/:id
   def update
     if @current_org_ref.update_attributes(user_params)
       json_response(@current_org_ref)
@@ -31,7 +31,7 @@ class OrganismeReferentsController < ApplicationController
     end
   end
 
-  # http: DELETE /users/:id
+  # http: DELETE /organisme_referents/:id
   def destroy
     if @current_org_ref.destroy
       head 200
