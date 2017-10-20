@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { User, Role } from './User';
 import { AuthHttp } from 'angular2-jwt';
+import { Http } from '@angular/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { UsersService } from './users.service';
@@ -11,7 +12,7 @@ export class AuthService {
   private myHeader = new Headers();
   private user: User = new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.coordonator);
   
-  constructor(private authHttp: AuthHttp, private usersService: UsersService){
+  constructor(private authHttp: AuthHttp, private http: Http, private usersService: UsersService){
     this.myHeader.append('Content-Type', 'application/json');
   }
 
@@ -30,7 +31,7 @@ export class AuthService {
 
   public login(user: User) 
   {
-    this.authHttp.post('localhost:3000/authentification/authenticate', JSON.stringify({ email: user.email, password: user.password }) ,{headers: this.myHeader})
+    this.http.post('localhost:3000/authentification/authenticate', JSON.stringify({ email: user.email, password: user.password }) ,{headers: this.myHeader})
     .subscribe((response: Response) => {
       // login successful if there's a jwt token in the response
       let token = response.json() && response.json().token;

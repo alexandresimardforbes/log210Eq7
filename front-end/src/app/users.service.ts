@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { AuthHttp } from 'angular2-jwt';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
