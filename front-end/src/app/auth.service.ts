@@ -10,13 +10,7 @@ import { UsersService } from './users.service';
 @Injectable()
 export class AuthService {
   private myHeader = new Headers();
-<<<<<<< HEAD
   private user: User = new User ('jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.coordonator);
-  
-=======
-  private user: User = new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.coordonator);
-
->>>>>>> 430e58331e57bacce20b2dc73dbc9ec0b653472f
   constructor(private authHttp: AuthHttp, private http: Http, private usersService: UsersService){
     this.myHeader.append('Content-Type', 'application/json');
   }
@@ -36,11 +30,7 @@ export class AuthService {
 
   public login(user: User)
   {
-<<<<<<< HEAD
     this.http.post('https://lab210eq7.herokuapp.com/authenticate', JSON.stringify({ email: user.email, password: user.password }) ,{headers: this.myHeader})
-=======
-    this.http.post('https://lab210eq7.herokuapp.com/authenticate', JSON.stringify({ email: user.email, password: user.password }))
->>>>>>> 430e58331e57bacce20b2dc73dbc9ec0b653472f
     .subscribe((response: Response) => {
       // login successful if there's a jwt token in the response
       let token = response.json() && response.json().token;
@@ -56,6 +46,7 @@ export class AuthService {
       }
   });
   }
+
 //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
   public getUser()
   {
