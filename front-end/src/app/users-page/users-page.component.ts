@@ -10,11 +10,13 @@ import { User, Role } from '../User';
   styleUrls: ['./users-page.component.css']
 })
 export class UsersPageComponent implements OnInit {
+  protected users: Array<User> = new Array();
 
   constructor(protected userService: UsersService, private router: Router, private login: AuthService ) { }
 
 
   ngOnInit() {
+    this.userService.getUsers().subscribe((users) => this.users = users);
   }
 
   protected onUserClicked(user: User)

@@ -9,7 +9,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 @NgModule({
   providers: [
     {
-      provide: AuthHttp,
+      provide: [AuthHttp, Http],
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
     }

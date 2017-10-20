@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { User, Role } from './User';
 import * as _ from 'lodash';
+import { AuthHttp } from 'angular2-jwt';
+import { Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class UsersService {
-
+  private myHeader = new Headers();
   private users: Array<User>;
-
-  constructor() 
+  
+  constructor(private authHttp: AuthHttp)
   {
+    this.myHeader.append('Content-Type', 'application/json');
     this.users = new Array();
     this.users.push( new User ('@mdo', 'jesus', 'mark.otto.1@etsmtl.net', 'Mark', 'Otto', 5) );
     this.users.push( new User ('@fat', 'jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.director) );
@@ -20,15 +24,15 @@ export class UsersService {
   }
 
 
-  public getUsers(): Array<User>
-  {
-    return _.cloneDeep(this.users);
+  public getUsers(): Observable<Array<User>> {
+    return this.authHttp.get('http://localhost:3000/users', {headers: this.myHeader})
+    .map((response: Response) => response.json());
   }
 
-  public getUser(id: number): User
+  public getUser(id: number): Observable<User>
   {
-    if (id === -1) return User.createEmpty();
-    return _.cloneDeep(this.users.find(e => e.id == id));
+    return this.authHttp.get(`http://localhost:3000/users/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
+    //return _.cloneDeep(this.users.find(e => e.id == id));
   }
 
   public setUser(user: User)

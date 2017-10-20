@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { ReferentsService } from './referents.service';
 import { OrganismesService } from './organismes.service';
+import { UsersService } from './users.service';
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './banner/banner.component';
@@ -31,6 +33,13 @@ const appRoutes: Routes = [
   /* { path: '**', component: PageNotFoundComponent } */
 ];
 
+import { Http, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,13 +56,17 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    AuthModule,
+    HttpModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [AuthGuard, AuthService, ReferentsService, OrganismesService],
+  providers: [AuthGuard, AuthService, ReferentsService, OrganismesService, {
+    provide: AuthHttp,
+    useFactory: authHttpServiceFactory,
+    deps: [Http, RequestOptions]
+  }, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

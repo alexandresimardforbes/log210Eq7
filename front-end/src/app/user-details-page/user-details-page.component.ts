@@ -21,7 +21,11 @@ export class UserDetailsPageComponent implements OnInit {
     protected login: AuthService) { }
 
   ngOnInit() {
-    this.user = this.userService.getUser(+this.route.snapshot.paramMap.get('id'));
+    if (+this.route.snapshot.paramMap.get('id') === -1)
+    {
+      this.user = User.createEmpty();
+    }
+    else this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => this.user = u);
   }
 
   onSubmit()
@@ -32,7 +36,7 @@ export class UserDetailsPageComponent implements OnInit {
 
   onReset()
   {
-    this.user = this.userService.getUser(+this.route.snapshot.paramMap.get('id'));
+    this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => this.user = u);
   }
 
   canModify()
