@@ -8,8 +8,4 @@ class ApplicationController < ActionController::API
     @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: {error: 'Non authorisé'}, status: 401 unless @current_user
   end
-
-  def json_response(object, status = :ok)
-    render json: object, status: status
-  end
 end

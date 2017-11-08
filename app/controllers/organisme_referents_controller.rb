@@ -46,6 +46,11 @@ class OrganismeReferentsController < ApplicationController
     @current_org_ref = OrganismeReferent.find_by_id(params[:id])
   end
 
+  def json_response(object, status = :ok)
+    render json: object, status: status, except: %i[created_at
+                                                    updated_at]
+  end
+
   def organisme_params
     params.require(:organisme_referent).permit(:nom_organisme_ref, :adresse, :telephone,
                                                :telecopie, :courriel, :site_web, :disable)
