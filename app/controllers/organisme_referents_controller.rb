@@ -14,7 +14,7 @@ class OrganismeReferentsController < ApplicationController
 
   # http: POST /organisme_referents
   def create
-    new_organisme_ref = OrganismeReferent.new(user_params)
+    new_organisme_ref = OrganismeReferent.new(organisme_params)
     if new_organisme_ref.save
       json_response(new_organisme_ref)
     else
@@ -24,7 +24,7 @@ class OrganismeReferentsController < ApplicationController
 
   # http: PATCH /organisme_referents/:id
   def update
-    if @current_org_ref.update_attributes(user_params)
+    if @current_org_ref.update_attributes(organisme_params)
       json_response(@current_org_ref)
     else
       render json: { errors: @current_org_ref.errors.full_messages }, status: :bad_request
@@ -46,11 +46,7 @@ class OrganismeReferentsController < ApplicationController
     @current_org_ref = OrganismeReferent.find_by_id(params[:id])
   end
 
-  def json_response(object, status = :ok)
-    render json: object, status: status
-  end
-
-  def user_params
+  def organisme_params
     params.require(:organisme_referent).permit(:nom_organisme_ref, :adresse, :telephone,
                                                :telecopie, :courriel, :site_web, :disable)
   end
