@@ -15,6 +15,6 @@
                             first_name: 'Jacque', last_name: 'Pellerin', user_type: 2, disable: false)
 
     @userRoot.save
-    @userRoot.save
+    @userRootCoord.save
 
 
