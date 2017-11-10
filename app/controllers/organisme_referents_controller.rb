@@ -18,7 +18,7 @@ class OrganismeReferentsController < ApplicationController
     if new_organisme_ref.save
       json_response(new_organisme_ref)
     else
-      render json: { errors: new_organisme_ref.errors.full_messages }, status: :bad_request
+      render json: { errors: new_organisme_ref.errors }, status: :bad_request
     end
   end
 
@@ -27,7 +27,7 @@ class OrganismeReferentsController < ApplicationController
     if @current_org_ref.update_attributes(organisme_params)
       json_response(@current_org_ref)
     else
-      render json: { errors: @current_org_ref.errors.full_messages }, status: :bad_request
+      render json: { errors: @current_org_ref.errors }, status: :bad_request
     end
   end
 
@@ -36,7 +36,7 @@ class OrganismeReferentsController < ApplicationController
     if @current_org_ref.destroy
       head 200
     else
-      render json: { errors: @current_org_ref.errors.full_messages }, status: :bad_request
+      render json: { errors: @current_org_ref.errors }, status: :bad_request
     end
   end
 

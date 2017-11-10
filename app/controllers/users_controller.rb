@@ -20,9 +20,10 @@ class UsersController < ApplicationController
       if new_user.save
         json_response(new_user)
       else
-        render json: { errors: new_user.errors.full_messages }, status: :bad_request
+        render json: { errors: new_user.errors }, status: :bad_request
       end
     else
+      render json: { errors: "L'utilisateur n'a pas les droits requis pour la création de ce rôle."}, status: :bad_request
     end
   end
 
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       json_response(@user)
     else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors }, status: :bad_request
     end
   end
 
@@ -40,7 +41,7 @@ class UsersController < ApplicationController
     if @user.destroy
       head 200
     else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors }, status: :bad_request
     end
   end
 
