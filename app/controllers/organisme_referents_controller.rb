@@ -52,7 +52,7 @@ class OrganismeReferentsController < ApplicationController
   end
 
   def organisme_params
-    params.require(:organisme_referent).permit(:nom_organisme_ref, :adresse, :telephone,
-                                               :telecopie, :courriel, :site_web, :disable)
+    params.require(:organisme_referent).permit(:nom_organisme_ref, :telephone, :telecopie, :courriel, :site_web,
+                                               :disable, :no_civique, :rue, :ville, :province, :etat, :code_postal)
   end
 end
