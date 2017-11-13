@@ -28,3 +28,9 @@
                                                        site_web: 'avocatssans.com',disable: false, no_civique: '5555',
                                                        rue: 'Dolly street', ville: 'Montreal',province:'Quebec',
                                                        etat: 'Quebec', code_postal: 'H3F1A8')
+
+    @organismeAlpha = Organisme.create(nom: 'Avocate sans frontiere',telephone: '2343479765',
+                                            fax: '345454567',courriel: 'avocatsans@gmaon.com',
+                                           disable: false, no_civique: '5555',
+                                            rue: 'Dolly street', ville: 'Montreal',province:'Quebec',
+                                            etat: 'Quebec', code_postal: 'H3F1A8')
