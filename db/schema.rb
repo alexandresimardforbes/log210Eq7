@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024014007) do
+ActiveRecord::Schema.define(version: 20171113182422) do
 
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
-    t.string "adresse"
     t.string "telephone"
     t.string "telecopie"
     t.string "courriel"
@@ -22,6 +21,12 @@ ActiveRecord::Schema.define(version: 20171024014007) do
     t.boolean "disable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "no_civique"
+    t.string "rue"
+    t.string "ville"
+    t.string "province"
+    t.string "etat"
+    t.string "code_postal"
   end
 
   create_table "referents", force: :cascade do |t|
