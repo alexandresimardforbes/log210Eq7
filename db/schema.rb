@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113182422) do
+ActiveRecord::Schema.define(version: 20171113200409) do
 
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
@@ -27,6 +27,22 @@ ActiveRecord::Schema.define(version: 20171113182422) do
     t.string "province"
     t.string "etat"
     t.string "code_postal"
+  end
+
+  create_table "organismes", force: :cascade do |t|
+    t.string "nom"
+    t.string "telephone"
+    t.string "fax"
+    t.string "courriel"
+    t.string "no_civique"
+    t.string "rue"
+    t.string "ville"
+    t.string "province"
+    t.string "etat"
+    t.string "code_postal"
+    t.boolean "disable", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "referents", force: :cascade do |t|
