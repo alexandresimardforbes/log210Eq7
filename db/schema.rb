@@ -25,6 +25,6 @@ ActiveRecord::Schema.define(version: 20171019213411) do
   end
 
 # Could not dump table "users" because of following StandardError
-#   Unknown type 'bool' for column 'disable'
+#   Unknown type 'BOOL' for column 'disable'
 
 end
