@@ -16,5 +16,6 @@ class  AuthenticationController < ApplicationController
     user = User.find_by_activationToken(params[:id])
     user.disable = false
     render json: {mess: "Account reactivated"  ,useremal: user.email}
+    user.save
   end
 end

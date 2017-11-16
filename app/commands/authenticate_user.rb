@@ -18,8 +18,11 @@ class AuthenticateUser
     datetime = DateTime.now.to_date
     logger = Logger.new("log/logAuth,log")
     user = User.find_by_email(email)
+
+
     return user if user && user.authenticate(password) && user.disable != true
-      user.authTry += 1
+
+    user.authTry += 1
     logger.info {"#{datetime} tentative echoué de #{user.email}"}
     if user.authTry > 2
       user.disable = true
