@@ -4,23 +4,25 @@ class ReferentsController < ApplicationController
   # GET /referents
   # GET /referents.json
   def index
-    @referents = Referent.all
+    referents = Referent.all
+    json_response(referents)
   end
 
   # GET /referents/1
   # GET /referents/1.json
   def show
+    json_response(@referent)
   end
 
   # POST /referents
   # POST /referents.json
   def create
-    @referent = Referent.new(referent_params)
+    new_referent = Referent.new(referent_params)
 
-    if @referent.save
-      render :show, status: :created, location: @referent
+    if new_referent.save
+      json_response(new_referent)
     else
-      render json: { errors: @referent.errors}, status: :unprocessable_entity
+      render json: { errors: new_referent.errors}, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +30,7 @@ class ReferentsController < ApplicationController
   # PATCH/PUT /referents/1.json
   def update
     if @referent.update(referent_params)
-      render :show, status: :ok, location: @referent
+      render json_response(@referent)
     else
       render json: { errors: @referent.errors}, status: :unprocessable_entity
     end
@@ -46,8 +48,14 @@ class ReferentsController < ApplicationController
       @referent = Referent.find(params[:id])
     end
 
+  def json_response(object, status = :ok)
+    render json: object, status: status, except: %i[password_digest created_at
+                                                    updated_at]
+  end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def referent_params
-      params.require(:referent).permit(:first_name, :last_name, :title, :phone_c, :phone_b, :fax, :email, :preference_fax, :preference_courriel, :preference_papier, :disable)
+      params.require(:referent).permit(:first_name, :last_name, :title, :phone_c, :phone_b, :fax, :email, :preference_fax,
+                                       :preference_courriel, :preference_papier, :disable, :organisme_referent_id)
     end
 end

@@ -29,6 +29,11 @@
                                                        rue: 'Dolly street', ville: 'Montreal',province:'Quebec',
                                                        etat: 'Quebec', code_postal: 'H3F1A8')
 
+    @referentPremier = Referent.create(first_name: 'Marc',last_name: 'Lavoie',title:'infirmier',phone_c:'3244234',
+                                       phone_b:'7672625',fax:'56789089', email:'marcl@ghot.com',preference_fax: true, preference_courriel: false, preference_papier: false,
+                                       organisme_referent_id:'1')
+
+
     @organismeAlpha = Organisme.create(nom: 'Les amis d''entraide',telephone: '1111111111',
                                             fax: '2222222',courriel: 'amientre@gmaon.com',
                                            disable: false, no_civique: '3421',

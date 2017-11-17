@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113200409) do
+ActiveRecord::Schema.define(version: 20171116234525) do
 
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20171113200409) do
     t.boolean "disable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "organisme_referent_id"
+    t.index ["organisme_referent_id"], name: "index_referents_on_organisme_referent_id"
   end
 
 # Could not dump table "users" because of following StandardError
