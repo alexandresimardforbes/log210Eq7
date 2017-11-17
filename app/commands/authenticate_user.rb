@@ -21,7 +21,9 @@ class AuthenticateUser
 
 
     return user if user && user.authenticate(password) && user.disable != true
-
+    if user.authTry.nil?
+      user.authTry = 0
+    end
     user.authTry += 1
  #   logger.info {"#{datetime} tentative echoué de #{user.email}"}
     if user.authTry > 2
