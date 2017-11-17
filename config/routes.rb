@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :organisme_referents, only: [:create, :update, :destroy, :index, :show]
   resources :organismes, only: [:create, :update, :destroy, :index, :show]
   post 'authenticate', to: 'authentication#authenticate'
+  resources :authentication, only: [:edit]
   end
