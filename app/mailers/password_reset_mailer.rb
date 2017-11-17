@@ -3,7 +3,7 @@ class PasswordResetMailer < ActionMailer::Base
 
   def send_password_reset(user)
     @user = user
-    @url = "http://localhost:3000/authentication/#{@user.activationToken}/edit"
+    @url = "https://lab210eq7.herokuapp.com/authentication/#{@user.activationToken}/edit"
     mail(to: @user.email,
     subject: 'Password Maison Petit Pond',
          body: @url)
