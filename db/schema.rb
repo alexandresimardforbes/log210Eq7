@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116234525) do
+ActiveRecord::Schema.define(version: 20171117215747) do
 
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
@@ -64,6 +64,6 @@ ActiveRecord::Schema.define(version: 20171116234525) do
   end
 
 # Could not dump table "users" because of following StandardError
-#   Unknown type 'BOOL' for column 'disable'
+#   Unknown type 'bool' for column 'disable'
 
 end
