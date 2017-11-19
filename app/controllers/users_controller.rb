@@ -16,11 +16,15 @@ class UsersController < ApplicationController
   # http: POST /users
   def create
     new_user = User.new(user_params)
+    if permission_to_create?(new_user.user_type)
       if new_user.save
         json_response(new_user)
       else
-        render json: { errors: new_user.errors.full_messages }, status: :bad_request
+        render json: { errors: new_user.errors }, status: :bad_request
       end
+    else
+      render json: { errors: "L'utilisateur n'a pas les droits requis pour la création de ce rôle."}, status: :bad_request
+    end
   end
 
   # http: PATCH /users/:id
@@ -28,7 +32,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       json_response(@user)
     else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors }, status: :bad_request
     end
   end
 
@@ -37,7 +41,7 @@ class UsersController < ApplicationController
     if @user.destroy
       head 200
     else
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors }, status: :bad_request
     end
   end
 
@@ -59,9 +63,9 @@ class UsersController < ApplicationController
 
   def permission_to_create?(create_user_role)
     @session_user = User.find_by_id(request.headers['Session-user-id'])
-    if @session_user.user_type == 'directeur'
+    if @session_user.user_type == 1
       return true
-    elsif @session_user.user_type == 'coordinateur' && create_user_role != 'directeur'
+    elsif @session_user.user_type == 2 && create_user_role != 1
       return true
     else
       return false
