@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { UsersService } from './users.service';
+import { Config } from './config';
 
 @Injectable()
 export class AuthService {
@@ -30,15 +31,16 @@ export class AuthService {
 
   public login(user: User)
   {
-    this.http.post('https://lab210eq7.herokuapp.com/authenticate', JSON.stringify({ email: user.email, password: user.password }) ,{headers: this.myHeader})
+    this.http.post(Config.apiPath + '/authenticate', JSON.stringify({ email: user.email, password: user.password }) ,{headers: this.myHeader})
     .subscribe((response: Response) => {
       // login successful if there's a jwt token in the response
-      let token = response.json() && response.json().token;
+      let token = response.json() && response.json().auth_token;
       let userid = response.json().userid;
-      this.usersService.getUser(userid).subscribe(u => this.user = user);
       if (token) {
         localStorage.setItem('token', token);
-          // return true to indicate successful login
+        localStorage.setItem('userid', userid);
+        this.usersService.getUser(userid).subscribe(u => this.user = user);
+        // return true to indicate successful login
         return true;
       } else {
           // return false to indicate failed login
@@ -47,7 +49,6 @@ export class AuthService {
   });
   }
 
-//'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
   public getUser()
   {
     return this.user;

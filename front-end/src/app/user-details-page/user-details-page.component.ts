@@ -30,7 +30,7 @@ export class UserDetailsPageComponent implements OnInit {
 
   onSubmit()
   {
-    if(+this.route.snapshot.paramMap.get('id') === -1) this.userService.createUser(this.user);
+    if(+this.route.snapshot.paramMap.get('id') === -1) this.userService.createUser(this.user).subscribe();
     this.userService.setUser(this.user);
   }
 

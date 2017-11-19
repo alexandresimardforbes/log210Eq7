@@ -10,7 +10,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users; index as i" (click)="onUserClicked(user)" [ngClass]="{'text-danger' :!user.activated}">
+              <tr *ngFor="let user of users; index as i" (click)="onUserClicked(user)" [ngClass]="{'text-danger' :user.disable}">
                 <th scope="row">{{i+1}}</th>
                 <td>{{user.first_name}}</td>
                 <td>{{user.last_name}}</td>

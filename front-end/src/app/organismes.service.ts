@@ -1,41 +1,51 @@
 import { Injectable } from '@angular/core';
 import { OrganismeReferent } from './organisme-referent';
+import { Config } from './config';
+import { AuthHttp } from 'angular2-jwt';
+import { Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable()
 export class OrganismesService {
 
   private orgs: Array<OrganismeReferent> = new Array();
+  private myHeader = new Headers();
+  private bool: boolean = false;
   
-    constructor() {
-      let o = new OrganismeReferent();
-      o.id = "555"
-      o.nom = "Molesting Inc";
-      o.siteWeb = "MolestingInc.cum";
-      o.courriel = "MolestingInc@dansyeule.cum";
-      this.orgs.push(o);
-     }
+  constructor(private authHttp: AuthHttp) {
+    this.myHeader.append('Content-Type', 'application/json');
+  }
   
   
     public getAll()
     {
-      return this.orgs;
+      return this.authHttp.get(Config.apiPath + '/organisme_referents', {headers: this.myHeader})
+      .map((response: Response) => response.json());
     }
 
     public getById(id)
     {
-      if (id === "-1") return new OrganismeReferent();
-      return this.orgs.find((o) => o.id === id );
+      return this.authHttp.get(Config.apiPath + `/organisme_referents/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());      
     }
   
+    public getDisable(){
+      this.bool = !this.bool;
+      return this.bool;
+    }
+
     public create(o: OrganismeReferent)
     {
-      o.id = (Math.random()*1000000).toString();
-      this.orgs.push(_.cloneDeep(o));
+      let header = _.cloneDeep(this.myHeader);
+      header.append('Session-user-id', localStorage.getItem('userid').toString());
+      _.unset(o, 'id');
+      return this.authHttp.post(Config.apiPath + `/organisme_referents/`,{organisme_referent: o}, {headers: header}).map((response: Response) => response.json());
     }
   
     public update(o: OrganismeReferent)
     {
-      this.orgs[this.orgs.findIndex(e => e.id == o.id)] = _.cloneDeep(o);
+      let header = _.cloneDeep(this.myHeader);
+      header.append('Session-user-id', localStorage.getItem('userid').toString());
+      return this.authHttp.patch(Config.apiPath + `/organisme_referents/` + o.id, {organisme_referent: o}, {headers: header}).map((response: Response) => response.json());
     }
 }

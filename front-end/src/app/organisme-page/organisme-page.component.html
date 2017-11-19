@@ -10,10 +10,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let org of orgService.getAll(); index as i" (click)="onOrgClicked(org)">
+            <tr *ngFor="let org of orgs; index as i" (click)="onOrgClicked(org)">
               <th scope="row">{{i+1}}</th>
-              <td>{{org.nom}}</td>
-              <td>{{org.siteWeb}}</td>
+              <td>{{org.nom_organisme_ref}}</td>
+              <td>{{org.site_web}}</td>
               <td>{{org.courriel}}</td>
             </tr>
           </tbody>

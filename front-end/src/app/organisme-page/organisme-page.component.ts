@@ -10,10 +10,14 @@ import { OrganismeReferent } from '../organisme-referent';
   styleUrls: ['./organisme-page.component.css']
 })
 export class OrganismePageComponent implements OnInit {
+  public orgs: Array<OrganismeReferent>;
 
-  constructor(protected orgService: OrganismesService, private router: Router) { }
+
+  constructor(protected orgService: OrganismesService, private router: Router) { 
+  }
 
   ngOnInit() {
+    this.orgService.getAll().subscribe(r => this.orgs = r);
   }
 
   protected onOrgClicked(org: OrganismeReferent)

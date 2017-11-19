@@ -7,17 +7,29 @@
               <th>Prenom</th>
               <th>Nom</th>
               <th>Titre</th>
-              <th>Courriel</th>
+              <th>Telephone cellulaire</th>
+              <th>Telephone bureau</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let ref of referentsService.getAll(); index as i" (click)="onReferentClicked(ref)">
-              <th scope="row">{{i+1}}</th>
-              <td>{{ref.prenom}}</td>
-              <td>{{ref.nom}}</td>
-              <td>{{ref.titre}}</td>
-              <td>{{ref.courriel}}</td>
+            <tr>
+                <th scope="row"></th>
+                <td><input [(ngModel)]="search.first_name" #firstName="ngModel" type="text" id="firstName" name="firstName"></td>
+                <td><input [(ngModel)]="search.last_name" #lastName="ngModel" type="text" id="lastName" name="lastName"></td>
+                <td><input [(ngModel)]="search.title" #title="ngModel" type="text" id="title" name="title"></td>
+                <td><input [(ngModel)]="search.phone_c" #phoneC="ngModel" type="text" id="phoneC" name="phoneC"></td>
+                <td><input [(ngModel)]="search.phone_b" #phoneB="ngModel" type="text" id="phoneB" name="phoneB"></td>
             </tr>
+            <ng-template ngFor let-ref [ngForOf]="referents" let-i="index" >
+            <tr *ngIf="canShow(ref)" (click)="onReferentClicked(ref)">
+              <th scope="row">{{i+1}}</th>
+              <td>{{ref.first_name}}</td>
+              <td>{{ref.last_name}}</td>
+              <td>{{ref.title}}</td>
+              <td>{{ref.phone_c}}</td>
+              <td>{{ref.phone_b}}</td>
+            </tr>
+            </ng-template>
           </tbody>
         </table>
         <div class="text-center">

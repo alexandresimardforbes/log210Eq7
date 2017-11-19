@@ -20,6 +20,8 @@ import { OrganismePageComponent } from './organisme-page/organisme-page.componen
 import { ReferentPageComponent } from './referent-page/referent-page.component';
 import { ReferentDetailsPageComponent } from './referent-details-page/referent-details-page.component';
 import { OrganismeDetailsPageComponent } from './organisme-details-page/organisme-details-page.component';
+import { NbThemeModule } from '@nebular/theme';
+
 
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
@@ -27,8 +29,9 @@ const appRoutes: Routes = [
   { path: 'user/:id', component: UserDetailsPageComponent, canActivate: [AuthGuard] },
   { path: 'organismes', component: OrganismePageComponent, canActivate: [AuthGuard] },
   { path: 'referents', component: ReferentPageComponent, canActivate: [AuthGuard] },
-  { path: 'referents/:id', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'referents/:id/:org', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
   { path: 'organismes/:id', component: OrganismeDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismes/referents/:id', component: ReferentPageComponent, canActivate: [AuthGuard] },
   { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   /* { path: '**', component: PageNotFoundComponent } */
 ];
@@ -57,6 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserModule,
     FormsModule,
     HttpModule,
+    NbThemeModule.forRoot({ name: 'default' }),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

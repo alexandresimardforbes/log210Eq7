@@ -27,33 +27,33 @@
            required>
         </div>
         <div class="form-group">
-          <label for="FirstName">Activated</label>
-          <input [(ngModel)]="user.activated" #firstName="ngModel" type="checkbox" id="activated" name="activated" required
-          [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+          <label for="FirstName">Disabled</label>
+          <input [(ngModel)]="user.disable" #firstName="ngModel" type="checkbox" id="activated" name="activated" required
+          [disabled]="!(this.login.getUser().user_type <= 2 && this.user.user_type >= this.login.getUser().user_type)">
         </div>
         <label for="Rights">User Role</label>
       <fieldset class="form-group">
         <div class="form-check">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" [disabled]="!(this.login.getUser().role === 1 && this.user.role >= this.login.getUser().role)">
+            <input type="radio" [(ngModel)]="user.user_type" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="1" [disabled]="!(this.login.getUser().user_type === 1 && this.user.user_type >= this.login.getUser().user_type)">
             Director
           </label>
         </div>
         <div class="form-check">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+            <input type="radio" [(ngModel)]="user.user_type" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="2" [disabled]="!(this.login.getUser().user_type <= 2 && this.user.user_type >= this.login.getUser().user_type)">
             Coordonnator
           </label>
         </div>
         <div class="form-check">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+            <input type="radio" [(ngModel)]="user.user_type" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="3" [disabled]="!(this.login.getUser().user_type <= 2 && this.user.user_type >= this.login.getUser().user_type)">
             Assistant-Coordonnator
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios4" value="option4" [disabled]="!(this.login.getUser().role <= 2 && this.user.role >= this.login.getUser().role)">
+              <input type="radio" [(ngModel)]="user.user_type" class="form-check-input" name="optionsRadios" id="optionsRadios4" value="4" [disabled]="!(this.login.getUser().user_type <= 2 && this.user.user_type >= this.login.getUser().user_type)">
               Intervenant
             </label>
           </div>

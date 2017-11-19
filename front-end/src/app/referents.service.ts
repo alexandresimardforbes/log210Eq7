@@ -1,41 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Referent } from './referent';
+import { Config } from './config';
+import { AuthHttp } from 'angular2-jwt';
+import { Headers, RequestOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable()
 export class ReferentsService {
   private referents: Array<Referent> = new Array();
+  private myHeader = new Headers();
 
-  constructor() {
-    let r = new Referent();
-    r.nom = "Guy";
-    r.id = "666"
-    r.prenom = "Jean";
-    r.titre = "Peteux de Cenne";
-    r.courriel = "PetCenne@dansyeule.com";
-    this.referents.push(r);
-   }
-
-
-  public getAll()
-  {
-    return this.referents;
+  constructor(private authHttp: AuthHttp) {
+    this.myHeader.append('Content-Type', 'application/json');
   }
 
-  public getById(id)
+
+  public getAll() :  Observable<any>
   {
-    if (id === "-1") return new Referent();
-    return this.referents.find((o) => o.id === id );
+    return this.authHttp.get(Config.apiPath + '/referents', {headers: this.myHeader})
+    .map((response: Response) => response.json());
   }
 
-  public create(r: Referent)
+  public getById(id) :  Observable<any>
   {
-    r.id = (Math.random()*1000000).toString();
-    this.referents.push(_.cloneDeep(r));
+    return this.authHttp.get(Config.apiPath + `/referents/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
   }
 
-  public update(r: Referent)
+  public create(ref: Referent) :  Observable<any>
   {
-    this.referents[this.referents.findIndex(e => e.id == r.id)] = _.cloneDeep(r);
+    let header = _.cloneDeep(this.myHeader);
+    header.append('Session-user-id', localStorage.getItem('userid').toString());
+    _.unset(ref, 'id');
+    return this.authHttp.post(Config.apiPath + `/referents/`,{referent: ref}, {headers: header}).map((response: Response) => response.json());
+  }
+
+  public update(ref: Referent) :  Observable<any>
+  {
+    let header = _.cloneDeep(this.myHeader);
+    header.append('Session-user-id', localStorage.getItem('userid').toString());
+    return this.authHttp.patch(Config.apiPath + `/referents/` + ref.id, {referent: ref}, {headers: header}).map((response: Response) => response.json());
   }
 }

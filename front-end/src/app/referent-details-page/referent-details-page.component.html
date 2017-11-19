@@ -3,43 +3,54 @@
     <form>
       <div class="form-group">
         <label for="FirstName">Prénom</label>
-        <input [(ngModel)]="ref.prenom" #firstName="ngModel" type="text" class="form-control" id="prenom" name="prenom"
+        <input [(ngModel)]="ref.first_name" #firstName="ngModel" type="text" class="form-control" id="prenom" name="prenom"
         required>
       </div>
       <div class="form-group">
         <label for="LastName">Nom</label>
-        <input [(ngModel)]="ref.nom" #lastName="ngModel" type="text" class="form-control" id="nom" name="nom"
+        <input [(ngModel)]="ref.last_name" #lastName="ngModel" type="text" class="form-control" id="nom" name="nom"
         required>
       </div>
       <div class="form-group">
         <label for="Email">Courriel</label>
-        <input [(ngModel)]="ref.courriel" #email="ngModel" type="email" class="form-control" id="courriel" name="courriel"
+        <input [(ngModel)]="ref.email" #email="ngModel" type="email" class="form-control" id="courriel" name="courriel"
           required>
         </div>
         <div class="form-group">
           <label for="LastName">Titre</label>
-          <input [(ngModel)]="ref.titre" #lastName="ngModel" type="text" class="form-control" id="titre" name="titre"
+          <input [(ngModel)]="ref.title" #title="ngModel" type="text" class="form-control" id="titre" name="titre"
           required>
         </div>
         <div class="form-group">
           <label for="LastName">Téléphone Cellulaire</label>
-          <input [(ngModel)]="ref.telephones.cellulaire" #lastName="ngModel" type="text" class="form-control" id="cellulaire" name="cellulaire"
+          <input [(ngModel)]="ref.phone_c" #phone_c="ngModel" type="text" class="form-control" id="cellulaire" name="cellulaire"
           required>
         </div>
         <div class="form-group">
           <label for="LastName">Téléphone Bureau</label>
-          <input [(ngModel)]="ref.telephones.bureau" #lastName="ngModel" type="text" class="form-control" id="bureau" name="bureau"
+          <input [(ngModel)]="ref.phone_b" #phone_b="ngModel" type="text" class="form-control" id="bureau" name="bureau"
           required>
         </div>
         <div class="form-group">
           <label for="LastName">Fax</label>
-          <input [(ngModel)]="ref.fax" #lastName="ngModel" type="text" class="form-control" id="fax" name="fax"
+          <input [(ngModel)]="ref.fax" #fax="ngModel" type="text" class="form-control" id="fax" name="fax"
           required>
         </div>
         <div class="form-group">
-          <label for="LastName">Type Rapport (0: fax, 1: courriel, 2: papier)</label>
-          <input [(ngModel)]="ref.rapport" #lastName="ngModel" type="text" class="form-control" id="rapport" name="rapport"
-          required>
+          <label for="FirstName">Rapport fax</label>
+          <input [(ngModel)]="ref.preference_fax" #preferenceFax="ngModel" type="checkbox" id="preferenceFax" name="preferenceFax" required>
+        </div>
+        <div class="form-group">
+          <label for="FirstName">Rapport courriel</label>
+          <input [(ngModel)]="ref.preference_courriel" #preferenceCourriel="ngModel" type="checkbox" id="preferenceCourriel" name="preferenceCourriel" required>
+        </div>
+        <div class="form-group">
+          <label for="FirstName">Rapport papier</label>
+          <input [(ngModel)]="ref.preference_papier" #preferencePapier="ngModel" type="checkbox" id="preferencePapier" name="preferencePapier" required>
+        </div>
+        <div class="form-group">
+          <label for="FirstName">Disabled</label>
+          <input [(ngModel)]="disable.disable" #disable="ngModel" type="checkbox" id="disable" name="disable" required>
         </div>
       <div class="text-center">
         <button type="submit" class="btn btn-primary m-1" (click)="onSubmit()">save</button>

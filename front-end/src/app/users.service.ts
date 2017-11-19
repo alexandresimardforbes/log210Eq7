@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { AuthHttp } from 'angular2-jwt';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import { Config } from './config';
 import 'rxjs/add/operator/map';
 
 
@@ -26,13 +27,13 @@ export class UsersService {
 
 
   public getUsers(): Observable<Array<User>> {
-    return this.authHttp.get('http://localhost:3000/users', {headers: this.myHeader})
+    return this.authHttp.get(Config.apiPath + '/users', {headers: this.myHeader})
     .map((response: Response) => response.json());
   }
 
   public getUser(id: number): Observable<User>
   {
-    return this.authHttp.get(`http://localhost:3000/users/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
+    return this.authHttp.get(Config.apiPath + `/users/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
     //return _.cloneDeep(this.users.find(e => e.id == id));
   }
 
@@ -41,9 +42,13 @@ export class UsersService {
     this.users[this.users.findIndex(e => e.id == user.id)] = _.cloneDeep(user);
   }
 
-  public createUser(user: User)
+  public createUser(user: User):  Observable<any>
   {
-    this.users.push(_.cloneDeep(user));
+    let header = _.cloneDeep(this.myHeader);
+    header.append('Session-user-id', localStorage.getItem('userid').toString());
+    _.unset(user, 'id');
+    return this.authHttp.post(Config.apiPath + `/users/`,{user: user}, {headers: header}).map((response: Response) => response.json());
+    //this.users.push(_.cloneDeep(user));
   }
 
 }

@@ -11,30 +11,34 @@ import { Adresse } from '../adresse';
   styleUrls: ['./organisme-details-page.component.css']
 })
 export class OrganismeDetailsPageComponent implements OnInit {
-  protected org: OrganismeReferent;
-  
-  
-    constructor(
-      private route: ActivatedRoute,
-      private router: Router,
-      protected referentsService: OrganismesService,
-      protected login: AuthService) { }
+  public org: OrganismeReferent = new OrganismeReferent();
+  public disable: boolean = false;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    protected OrganismesService: OrganismesService,
+    protected login: AuthService) {}
   
     ngOnInit() {
-      this.org = this.referentsService.getById(this.route.snapshot.paramMap.get('id'));
+      this.disable = this.OrganismesService.getDisable();
+      if(+this.route.snapshot.paramMap.get('id') !== -1) this.OrganismesService.getById(this.route.snapshot.paramMap.get('id')).subscribe(r => this.org = r);
     }
   
     onSubmit()
     {
-      if(+this.route.snapshot.paramMap.get('id') === -1) this.referentsService.create(this.org);
-      this.referentsService.update(this.org);
+      if(+this.route.snapshot.paramMap.get('id') === -1) this.OrganismesService.create(this.org).subscribe(r => this.org = r);
+      this.OrganismesService.update(this.org).subscribe(r => this.org = r);
     }
   
     onReset()
     {
-      this.org = this.referentsService.getById(+this.route.snapshot.paramMap.get('id'));
+      this.OrganismesService.getById(this.route.snapshot.paramMap.get('id')).subscribe(r => this.org = r);
     }
   
+    goToReferent(){
+      this.router.navigate(['/organismes/referents', this.org.id]);
+    }
+
     canModify()
     {
       return true;
