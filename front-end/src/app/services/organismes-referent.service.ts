@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { OrganismeReferent } from './organisme-referent';
-import { Config } from './config';
+import { OrganismeReferent } from '../public/organisme-referent';
+import { Config } from '../config/config';
 import { AuthHttp } from 'angular2-jwt';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 @Injectable()
-export class OrganismesService {
+export class OrganismesReferentService {
 
-  private orgs: Array<OrganismeReferent> = new Array();
   private myHeader = new Headers();
-  private bool: boolean = false;
-  
+
   constructor(private authHttp: AuthHttp) {
     this.myHeader.append('Content-Type', 'application/json');
   }
-  
-  
+
+
     public getAll()
     {
       return this.authHttp.get(Config.apiPath + '/organisme_referents', {headers: this.myHeader})
@@ -26,12 +24,7 @@ export class OrganismesService {
 
     public getById(id)
     {
-      return this.authHttp.get(Config.apiPath + `/organisme_referents/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());      
-    }
-  
-    public getDisable(){
-      this.bool = !this.bool;
-      return this.bool;
+      return this.authHttp.get(Config.apiPath + `/organisme_referents/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
     }
 
     public create(o: OrganismeReferent)
@@ -41,11 +34,13 @@ export class OrganismesService {
       _.unset(o, 'id');
       return this.authHttp.post(Config.apiPath + `/organisme_referents/`,{organisme_referent: o}, {headers: header}).map((response: Response) => response.json());
     }
-  
+
     public update(o: OrganismeReferent)
     {
       let header = _.cloneDeep(this.myHeader);
+      let id = o.id;
       header.append('Session-user-id', localStorage.getItem('userid').toString());
-      return this.authHttp.patch(Config.apiPath + `/organisme_referents/` + o.id, {organisme_referent: o}, {headers: header}).map((response: Response) => response.json());
+      _.unset(o, 'id');
+      return this.authHttp.patch(Config.apiPath + `/organisme_referents/` + id, {organisme_referent: o}, {headers: header}).map((response: Response) => response.json());
     }
 }

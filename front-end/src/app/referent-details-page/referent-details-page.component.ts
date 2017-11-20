@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { ReferentsService } from '../referents.service';
-import { Referent } from '../Referent';
-import { Telephone } from '../Telephone';
+import { AuthService } from '../services/auth.service';
+import { ReferentsService } from '../services/referents.service';
+import { Referent } from '../public/referent';
+import { Telephone } from '../public/telephone';
 
 @Component({
   selector: 'app-referent-details-page',
@@ -12,40 +12,43 @@ import { Telephone } from '../Telephone';
 })
 export class ReferentDetailsPageComponent implements OnInit {
   protected ref: Referent;
-  protected disable: Referent = new Referent();
-    
+  protected organismeReferent: number;
+
   constructor(
       private route: ActivatedRoute,
       private router: Router,
       protected referentsService: ReferentsService,
-      protected login: AuthService) 
+      protected login: AuthService)
       {
         this.ref = new Referent();
       }
-  
+
     ngOnInit() {
       this.referentsService.getById(this.route.snapshot.paramMap.get('id')).subscribe(r => this.ref = r);
-      this.ref.organisme_referent_id = this.route.snapshot.paramMap.get('org');
-      this.disable.disable = localStorage.getItem('refdisabled') === "true" ? true : false;
+      this.ref.organisme_referent_id = this.route.snapshot.paramMap.get('orgRef');
+      this.organismeReferent = +this.route.snapshot.paramMap.get('orgRef');
     }
-  
-    onSubmit()
+
+    protected onSubmit()
     {
-      localStorage.setItem('refdisabled', this.disable.disable.toString());
       if(+this.route.snapshot.paramMap.get('id') === -1) this.referentsService.create(this.ref).subscribe(r => {
         this.ref = r;
       }, error => {
           alert("Email exisdte déja!");
       });
-      this.referentsService.update(this.ref).subscribe(r => this.ref = r);
+      else this.referentsService.update(this.ref).subscribe(r => this.ref = r);
     }
-  
-    onReset()
+
+    protected goBack(){
+      this.router.navigate(['/organismesReferents', this.organismeReferent, 'referents']);
+    }
+
+    protected onReset()
     {
       this.referentsService.getById(this.route.snapshot.paramMap.get('id')).subscribe(r => this.ref = r);
     }
-  
-    canModify()
+
+    protected canModify()
     {
       return true;
     }

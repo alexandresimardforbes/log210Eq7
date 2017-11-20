@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Referent } from './referent';
-import { Config } from './config';
+import { Referent } from '../public/referent';
+import { Config } from '../config/config';
 import { AuthHttp } from 'angular2-jwt';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -38,7 +38,9 @@ export class ReferentsService {
   public update(ref: Referent) :  Observable<any>
   {
     let header = _.cloneDeep(this.myHeader);
+    let id = ref.id;
     header.append('Session-user-id', localStorage.getItem('userid').toString());
-    return this.authHttp.patch(Config.apiPath + `/referents/` + ref.id, {referent: ref}, {headers: header}).map((response: Response) => response.json());
+    _.unset(ref, 'id');
+    return this.authHttp.patch(Config.apiPath + `/referents/` + id, {referent: ref}, {headers: header}).map((response: Response) => response.json());
   }
 }

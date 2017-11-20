@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsersService } from '../users.service';
-import { AuthService } from '../auth.service';
-import { User, Role } from '../User';
+import { UsersService } from '../services/users.service';
+import { AuthService } from '../services/auth.service';
+import { User, Role } from '../public/user';
 
 @Component({
   selector: 'app-users-page',
@@ -29,7 +29,7 @@ export class UsersPageComponent implements OnInit {
     this.router.navigate(['/user', -1]);
   }
 
-  protected canCreate() 
+  protected canCreate()
   {
     return this.login.getUser().user_type <= Role.coordonator;
   }

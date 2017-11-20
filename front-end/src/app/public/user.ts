@@ -8,7 +8,7 @@ export class User {
     public disable: boolean;
     public user_type: Role
 
-    constructor(password, email, firstName, lastName, id, user_type = Role.coordonator, disable = false)
+    constructor(password, email, firstName, lastName, id, user_type = Role.intervenant, disable = false)
     {
         this.password = password;
         this.email = email;

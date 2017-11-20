@@ -4,11 +4,11 @@ import {HttpModule} from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
-import { AuthGuard } from './auth-guard.service';
-import { AuthService } from './auth.service';
-import { ReferentsService } from './referents.service';
-import { OrganismesService } from './organismes.service';
-import { UsersService } from './users.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { AuthService } from './services/auth.service';
+import { ReferentsService } from './services/referents.service';
+import { OrganismesReferentService } from './services/organismes-referent.service';
+import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './banner/banner.component';
@@ -16,22 +16,22 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
-import { OrganismePageComponent } from './organisme-page/organisme-page.component';
+import { OrganismeReferentPageComponent } from './organisme-referent-page/organisme-referent-page.component';
 import { ReferentPageComponent } from './referent-page/referent-page.component';
 import { ReferentDetailsPageComponent } from './referent-details-page/referent-details-page.component';
-import { OrganismeDetailsPageComponent } from './organisme-details-page/organisme-details-page.component';
+import { OrganismeReferentDetailsPageComponent } from './organisme-referent-details-page/organisme-referent-details-page.component';
 import { NbThemeModule } from '@nebular/theme';
+
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersPageComponent, canActivate: [AuthGuard] },
   { path: 'user/:id', component: UserDetailsPageComponent, canActivate: [AuthGuard] },
-  { path: 'organismes', component: OrganismePageComponent, canActivate: [AuthGuard] },
-  { path: 'referents', component: ReferentPageComponent, canActivate: [AuthGuard] },
-  { path: 'referents/:id/:org', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
-  { path: 'organismes/:id', component: OrganismeDetailsPageComponent, canActivate: [AuthGuard] },
-  { path: 'organismes/referents/:id', component: ReferentPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismesReferents', component: OrganismeReferentPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismesReferents/:id', component: OrganismeReferentDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismesReferents/:orgRef/referents/:id', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
+  { path: 'organismesReferents/:orgRef/referents', component: ReferentPageComponent, canActivate: [AuthGuard] },
   { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   /* { path: '**', component: PageNotFoundComponent } */
 ];
@@ -51,10 +51,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     UsersPageComponent,
     HomePageComponent,
     UserDetailsPageComponent,
-    OrganismePageComponent,
+    OrganismeReferentPageComponent,
     ReferentPageComponent,
     ReferentDetailsPageComponent,
-    OrganismeDetailsPageComponent
+    OrganismeReferentDetailsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [AuthGuard, AuthService, ReferentsService, OrganismesService, {
+  providers: [AuthGuard, AuthService, ReferentsService, OrganismesReferentService, {
     provide: AuthHttp,
     useFactory: authHttpServiceFactory,
     deps: [Http, RequestOptions]

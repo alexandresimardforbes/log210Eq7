@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReferentsService } from '../referents.service';
+import { ReferentsService } from '../services/referents.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { AuthService } from '../auth.service';
-import { Referent } from '../Referent';
+import { AuthService } from '../services/auth.service';
+import { Referent } from '../public/referent';
 
 @Component({
   selector: 'app-referent-page',
@@ -14,24 +14,26 @@ import { Referent } from '../Referent';
 export class ReferentPageComponent implements OnInit {
   public referents: Array<Referent>;
   public search: Referent;
+  public organismeReferent: string;
 
-  constructor(protected referentsService: ReferentsService, private router: Router, 
+  constructor(protected referentsService: ReferentsService, private router: Router,
     private route: ActivatedRoute) {
     this.getAll();
     this.search = new Referent();
    }
 
   ngOnInit() {
+    this.organismeReferent = this.route.snapshot.paramMap.get('orgRef');
   }
 
   protected onReferentClicked(referent: Referent)
   {
-    this.router.navigate(['/referents', referent.id, 1]);
+    this.router.navigate(['/organismesReferents', this.organismeReferent, 'referents', referent.id]);
   }
 
   protected onCreateReferent()
   {
-    this.router.navigate(['/referents', -1, 1]);
+    this.router.navigate(['/organismesReferents', this.organismeReferent, 'referents', -1]);
   }
 
   protected canShow(ref: Referent){

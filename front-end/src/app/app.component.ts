@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BannerComponent } from './banner/banner.component';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { UsersPageComponent } from './users-page/users-page.component';
 
 @Component({

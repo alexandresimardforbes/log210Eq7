@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { UsersService } from '../users.service';
-import { User, Role } from '../User';
+import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
+import { User, Role } from '../public/user';
 
 
 @Component({
@@ -12,6 +12,7 @@ import { User, Role } from '../User';
 })
 export class UserDetailsPageComponent implements OnInit {
   protected user: User;
+  protected loggedUser: User = User.createEmpty();
 
 
   constructor(
@@ -21,15 +22,17 @@ export class UserDetailsPageComponent implements OnInit {
     protected login: AuthService) { }
 
   ngOnInit() {
-    if (+this.route.snapshot.paramMap.get('id') === -1)
+    this.user = User.createEmpty();
+    this.loggedUser = this.login.getUser();
+    if (+this.route.snapshot.paramMap.get('id') > -1)
     {
-      this.user = User.createEmpty();
+      this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => {this.user = u; console.log(u)});
     }
-    else this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => this.user = u);
   }
 
   onSubmit()
   {
+    console.log(this.user);
     if(+this.route.snapshot.paramMap.get('id') === -1) this.userService.createUser(this.user).subscribe();
     this.userService.setUser(this.user);
   }
@@ -39,9 +42,13 @@ export class UserDetailsPageComponent implements OnInit {
     this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => this.user = u);
   }
 
-  canModify()
-  {
-    return this.login.getUser().user_type < this.user.user_type;
+  onRadioClick(e){
+    this.user.user_type = e;
+  }
+
+  hasNoRightsToCreate(roleLevel: number){
+    let bool = (this.loggedUser.user_type > roleLevel || this.loggedUser.user_type > this.user.user_type );
+    return bool;
   }
 
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User, Role } from './User';
+import { User, Role } from '../public/user';
 import * as _ from 'lodash';
 import { AuthHttp } from 'angular2-jwt';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { Config } from './config';
+import { Config } from '../config/config';
 import 'rxjs/add/operator/map';
 
 
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class UsersService {
   private myHeader = new Headers();
   private users: Array<User>;
-  
+
   constructor(private authHttp: AuthHttp)
   {
     this.myHeader.append('Content-Type', 'application/json');

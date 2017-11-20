@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import { User, Role } from './User';
+import { User, Role } from '../public/user';
 import { AuthHttp } from 'angular2-jwt';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { UsersService } from './users.service';
-import { Config } from './config';
+import { Config } from '../config/config';
 
 @Injectable()
 export class AuthService {
   private myHeader = new Headers();
-  private user: User = new User ('jesus', 'Jacob.Thornton.1@etsmtl.net', 'Jacob', 'Thornton', 6, Role.coordonator);
+  private user: User = User.createEmpty();
   constructor(private authHttp: AuthHttp, private http: Http, private usersService: UsersService){
     this.myHeader.append('Content-Type', 'application/json');
+    if(localStorage.getItem('userid')) this.usersService.getUser(+localStorage.getItem('userid')).subscribe(u => this.user = u);
   }
 
   public getToken(): string {
@@ -39,7 +40,9 @@ export class AuthService {
       if (token) {
         localStorage.setItem('token', token);
         localStorage.setItem('userid', userid);
-        this.usersService.getUser(userid).subscribe(u => this.user = user);
+        this.usersService.getUser(userid).subscribe(u => {
+          this.user = u
+        });
         // return true to indicate successful login
         return true;
       } else {

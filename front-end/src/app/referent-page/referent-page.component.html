@@ -14,11 +14,21 @@
           <tbody>
             <tr>
                 <th scope="row"></th>
-                <td><input [(ngModel)]="search.first_name" #firstName="ngModel" type="text" id="firstName" name="firstName"></td>
-                <td><input [(ngModel)]="search.last_name" #lastName="ngModel" type="text" id="lastName" name="lastName"></td>
-                <td><input [(ngModel)]="search.title" #title="ngModel" type="text" id="title" name="title"></td>
-                <td><input [(ngModel)]="search.phone_c" #phoneC="ngModel" type="text" id="phoneC" name="phoneC"></td>
-                <td><input [(ngModel)]="search.phone_b" #phoneB="ngModel" type="text" id="phoneB" name="phoneB"></td>
+                <td>
+                    <input [(ngModel)]="search.first_name" #firstName="ngModel" type="text" id="firstName" name="firstName">
+                </td>
+                <td>
+                  <input [(ngModel)]="search.last_name" #lastName="ngModel" type="text" id="lastName" name="lastName">
+                </td>
+                <td>
+                  <input [(ngModel)]="search.title" #title="ngModel" type="text" id="title" name="title">
+                </td>
+                <td>
+                  <input [(ngModel)]="search.phone_c" #phoneC="ngModel" type="text" id="phoneC" name="phoneC">
+                </td>
+                <td>
+                  <input [(ngModel)]="search.phone_b" #phoneB="ngModel" type="text" id="phoneB" name="phoneB">
+                </td>
             </tr>
             <ng-template ngFor let-ref [ngForOf]="referents" let-i="index" >
             <tr *ngIf="canShow(ref)" (click)="onReferentClicked(ref)">
