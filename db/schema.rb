@@ -12,6 +12,27 @@
 
 ActiveRecord::Schema.define(version: 20171117215747) do
 
+  create_table "diplomas", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.integer "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "phone_c"
+    t.string "phone_m"
+    t.string "phone_b"
+    t.string "emai"
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
     t.string "telephone"

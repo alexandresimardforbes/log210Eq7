@@ -30,7 +30,7 @@ class ReferentsController < ApplicationController
   # PATCH/PUT /referents/1.json
   def update
     if @referent.update(referent_params)
-      render json_response(@referent)
+      json_response(@referent)
     else
       render json: { errors: @referent.errors}, status: :unprocessable_entity
     end
