@@ -51,3 +51,13 @@
                                             rue: 'Atwater street', ville: 'Montreal',province:'Quebec',
                                             etat: 'Quebec', code_postal: 'I3F6A8')
 
+    @pointServiceAlphaOmega = PointService.create(nom: 'Centre communautaire Parent',telephone: '1111111111',
+                                       fax: '2222222',courriel: 'amientre@gmaon.com', no_civique: '3421',
+                                       rue: 'marquette street', ville: 'Montreal',province:'Quebec',
+                                       etat: 'Quebec', code_postal: 'I3F6A8',organisme_id: 1)
+
+    @pointServiceAlphaOmega = PointService.create(nom: 'Ecole Albert Rousseau',telephone: '1111111111',
+                                                  fax: '2222222',courriel: 'ecolear@gmaon.com', no_civique: '1111',
+                                                  rue: 'richard street', ville: 'Montreal',province:'Quebec',
+                                                  etat: 'Quebec', code_postal: 'FGG6S5',organisme_id: 1)
+
