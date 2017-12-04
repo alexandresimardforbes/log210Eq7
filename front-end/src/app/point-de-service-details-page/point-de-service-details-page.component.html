@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-block">
+    <form>
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input [(ngModel)]="pds.nom" #firstName="ngModel" type="text" class="form-control" id="nom" name="nom"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="noCivique">No civique</label>
+        <input [(ngModel)]="pds.no_civique" #lastName="ngModel" type="text" class="form-control" id="noCivique" name="noCivique"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="rue">Rue</label>
+        <input [(ngModel)]="pds.rue" #email="ngModel" type="text" class="form-control" id="rue" name="rue"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="ville">ville</label>
+        <input [(ngModel)]="pds.ville" #lastName="ngModel" type="text" class="form-control" id="ville" name="ville"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="province">province</label>
+        <input [(ngModel)]="pds.province" #lastName="ngModel" type="text" class="form-control" id="province" name="province"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="codePostal">code postal</label>
+        <input [(ngModel)]="pds.code_postal" #lastName="ngModel" type="text" class="form-control" id="codePostal" name="codePostal"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="telephone">Telephone</label>
+        <input [(ngModel)]="pds.telephone" #lastName="ngModel" type="text" class="form-control" id="telephone" name="telephone"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="courriel">Courriel</label>
+        <input [(ngModel)]="pds.courriel" #lastName="ngModel" type="email" class="form-control" id="courriel" name="courriel"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="disable">Disabled</label>
+        <input [(ngModel)]="pds.disable" type="checkbox" id="disable" name="disable" required>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default m-1" (click)="goToLocal()">Locaux</button>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary m-1" (click)="onSubmit()">save</button>
+        <button class="btn btn-default m-1" (click)="onReset()">reset</button>
+        <button class="btn btn-default m-1" (click)="goBack()">back</button>
+      </div>
+    </form>
+  </div>
+</div>

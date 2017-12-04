@@ -13,6 +13,7 @@ import { User, Role } from '../public/user';
 export class UserDetailsPageComponent implements OnInit {
   protected user: User;
   protected loggedUser: User = User.createEmpty();
+  protected org: number;
 
 
   constructor(
@@ -24,6 +25,7 @@ export class UserDetailsPageComponent implements OnInit {
   ngOnInit() {
     this.user = User.createEmpty();
     this.loggedUser = this.login.getUser();
+    this.org = +this.route.snapshot.paramMap.get('org');
     if (+this.route.snapshot.paramMap.get('id') > -1)
     {
       this.userService.getUser(+this.route.snapshot.paramMap.get('id')).subscribe(u => {this.user = u; console.log(u)});
@@ -49,6 +51,11 @@ export class UserDetailsPageComponent implements OnInit {
   hasNoRightsToCreate(roleLevel: number){
     let bool = (this.loggedUser.user_type > roleLevel || this.loggedUser.user_type > this.user.user_type );
     return bool;
+  }
+
+  protected onBack()
+  {
+    this.router.navigate(['/users', this.org]);
   }
 
 }

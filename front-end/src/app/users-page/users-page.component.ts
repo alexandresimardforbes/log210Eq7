@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { AuthService } from '../services/auth.service';
 import { User, Role } from '../public/user';
@@ -11,22 +11,31 @@ import { User, Role } from '../public/user';
 })
 export class UsersPageComponent implements OnInit {
   protected users: Array<User> = new Array();
+  protected org: number;
 
-  constructor(protected userService: UsersService, private router: Router, private login: AuthService ) { }
+  constructor(protected userService: UsersService, private router: Router, private login: AuthService,private route: ActivatedRoute ) { }
 
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((users) => this.users = users);
+    this.org = +this.route.snapshot.paramMap.get('org');
+    if(this.org == -1){
+      this.userService.getUsers().subscribe((users) => this.users = users);
+    }
+    else{
+      //TODO: Only get the users related to that organisation.
+      //this.userService.getUsers().subscribe((users) => this.users = users);
+    }
+
   }
 
   protected onUserClicked(user: User)
   {
-    this.router.navigate(['/user', user.id]);
+    this.router.navigate(['/user', user.id, this.org]);
   }
 
   protected onCreateUser()
   {
-    this.router.navigate(['/user', -1]);
+    this.router.navigate(['/user', -1, this.org]);
   }
 
   protected canCreate()
