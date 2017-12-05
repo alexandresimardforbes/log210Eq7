@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171201163114) do
+=======
+ActiveRecord::Schema.define(version: 20171201013028) do
+
+  create_table "locals", force: :cascade do |t|
+    t.string "name"
+    t.integer "nbPlace"
+    t.string "typeService"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+>>>>>>> CU08
 
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
