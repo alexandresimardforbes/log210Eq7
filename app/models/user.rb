@@ -4,6 +4,8 @@ class User < ApplicationRecord
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
   validates_format_of :email, with: /@/
+  has_many :diplomas
+  has_and_belongs_to_many :organismes
   private
   def activation_token
     if self.activationToken.blank?

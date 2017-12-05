@@ -16,6 +16,7 @@ class OrganismesController < ApplicationController
   def create
     new_organisme = Organisme.new(organisme_params)
     if new_organisme.save
+      new_organisme.users << User.find_by_id(request.headers['Session-user-id'])
       json_response(new_organisme)
     else
       render json: { errors: new_organisme.errors }, status: :bad_request
