@@ -18,8 +18,8 @@ class UsersController < ApplicationController
     new_user = User.new(user_params)
     if permission_to_create?(new_user.user_type)
       if new_user.save
-        if organisme_params.permitted?
-          new_user.organismes << Organisme.find(organisme_params[:id])
+        if !params[:user][:organisme_id].nil?
+        new_user.organismes << Organisme.find(params[:user][:organisme_id])
         end
         json_response(new_user)
       else
@@ -59,11 +59,6 @@ class UsersController < ApplicationController
                                  :first_name, :last_name, :user_type, :disable,
                                  :address, :phone_c, :phone_m,
                                  :phone_b, diplomas_attributes: [  :name, :date ])
-  end
-
-
-  def organisme_params
-    params.require(:organisme).permit(:id)
   end
 
   def json_response(object, status = :ok)
