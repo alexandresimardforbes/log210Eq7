@@ -4,7 +4,6 @@ class CreateLocals < ActiveRecord::Migration[5.1]
       t.string :name
       t.integer :nbPlace
       t.string :typeService
-
       t.timestamps
     end
   end
