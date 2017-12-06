@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20171201163114) do
     t.string "name"
     t.integer "nbPlace"
     t.string "typeService"
+    t.integer "point_service_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
