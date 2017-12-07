@@ -4,12 +4,13 @@ export class PointDeService {
   telephone: string;
   courriel: string;
   fax: string;
-  "disable" : boolean;
-  "no_civique": string;
-  "rue": string;
-  "ville": string;
-  "province": string;
-  "etat": string;
-  "code_postal": string;
+  disable : boolean;
+  no_civique: string;
+  rue: string;
+  ville: string;
+  province: string;
+  etat: string;
+  code_postal: string;
+  organisme_id: number;
 
 }

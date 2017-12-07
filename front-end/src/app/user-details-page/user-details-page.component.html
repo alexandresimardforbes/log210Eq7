@@ -19,14 +19,59 @@
                required>
       </div>
       <div class="form-group">
-        <label for="Password">Password</label>
-        <input [(ngModel)]="user.password" #password="ngModel" type="password" class="form-control" id="password"
-               name="password"
+        <label for="address">Address</label>
+        <input [(ngModel)]="user.address" #address="ngModel" type="text" class="form-control" id="address" name="address"
                required>
       </div>
       <div class="form-group">
-        <label for="Password">Confirm Password</label>
-        <input [(ngModel)]="user.password_confirmation" #password="ngModel" type="confirmPassword" class="form-control"
+        <label for="phone_c">Cellphone</label>
+        <input [(ngModel)]="user.phone_c" #phone_c="ngModel" type="text" class="form-control" id="phone_c" name="phone_c"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="phone_b">Office telephone</label>
+        <input [(ngModel)]="user.phone_b" #phone_b="ngModel" type="text" class="form-control" id="phone_b" name="phone_b"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="phone_m">Home telephone</label>
+        <input [(ngModel)]="user.phone_m" #phone_m="ngModel" type="text" class="form-control" id="phone_m" name="phone_m"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="diploma">Diplomas</label>
+        <div class="diploma-wrapper">
+          <input  #diplomaName type="text" class="form-control" id="diploma" name="diploma" placeholder="Name">
+          <input  #diplomaDate type="text" class="form-control" id="date" name="diploma" placeholder="Date">
+          <button class="btn btn-primary m-1" (click)="onAddDiploma(diplomaName, diplomaDate)">Add</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="table table-hover borderless">
+            <thead>
+            <tr>
+              <th>Diploma</th>
+              <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let d of user.diplomas_attributes; index as i">
+              <td>{{d.name}}</td>
+              <td>{{d.date}}</td>
+              <td><button class="btn btn-danger" (click)="onDeleteDiploma(i)">X</button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input [(ngModel)]="user.password" #password="ngModel" type="password" class="form-control"
+               id="password" name="password"
+               required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input [(ngModel)]="user.password_confirmation" #confirmPassword="ngModel" type="confirmPassword" class="form-control"
                id="confirmPassword" name="confirmPassword"
                required>
       </div>

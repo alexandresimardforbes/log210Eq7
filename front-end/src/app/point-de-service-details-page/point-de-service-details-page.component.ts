@@ -3,6 +3,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import {PointDeService} from "../public/point-de-service";
 import {PointDeServiceService} from "../services/point-de-service.service";
+import {Role} from "../public/user";
 
 @Component({
   selector: 'app-point-de-service-details-page',
@@ -22,18 +23,21 @@ export class PointDeServiceDetailsPageComponent implements OnInit {
 
   ngOnInit() {
     this.org = +this.route.snapshot.paramMap.get('id');
-    if(+this.route.snapshot.paramMap.get('pds') !== -1) this.pdsService.getById(+this.route.snapshot.paramMap.get('id'), this.org).subscribe(r => this.pds = r);
+    if(+this.route.snapshot.paramMap.get('pds') !== -1) this.pdsService.getById(+this.route.snapshot.paramMap.get('pds')).subscribe(r => this.pds = r);
   }
 
   onSubmit()
   {
-    if(+this.route.snapshot.paramMap.get('pds') === -1) this.pdsService.create(this.pds, this.org).subscribe(r => this.pds = r);
-    else this.pdsService.update(this.pds, this.org).subscribe(r => this.pds = r);
+    if(+this.route.snapshot.paramMap.get('pds') === -1) {
+      this.pds.organisme_id = this.org;
+      this.pdsService.create(this.pds).subscribe(r => this.pds = r);
+    }
+    else this.pdsService.update(this.pds).subscribe(r => this.pds = r);
   }
 
   onReset()
   {
-    this.pdsService.getById(+this.route.snapshot.paramMap.get('pds'), this.org).subscribe(r => this.pds = r);
+    this.pdsService.getById(+this.route.snapshot.paramMap.get('pds')).subscribe(r => this.pds = r);
   }
 
   goToLocal(){
@@ -44,9 +48,9 @@ export class PointDeServiceDetailsPageComponent implements OnInit {
     this.router.navigate(['organismes', this.org, 'pointDeServices']);
   }
 
-  canModify()
+  protected canModify()
   {
-    return true;
+    return this.login.getUser().user_type == Role.director;
   }
 
 }

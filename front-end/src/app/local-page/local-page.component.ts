@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Local} from "../public/local";
 import {LocalService} from "../services/local.service";
+import { AuthService } from '../services/auth.service';
+import {Role} from "../public/user";
 
 @Component({
   selector: 'app-local-page',
@@ -15,7 +17,7 @@ export class LocalPageComponent implements OnInit {
   protected pds: number;
 
 
-  constructor(protected localService: LocalService, private router: Router,
+  constructor(protected localService: LocalService, private login: AuthService, private router: Router,
               private route: ActivatedRoute) {
   }
 
@@ -38,6 +40,6 @@ export class LocalPageComponent implements OnInit {
 
   protected canCreate()
   {
-    return true;
+    return this.login.getUser().user_type == Role.director;
   }
 }

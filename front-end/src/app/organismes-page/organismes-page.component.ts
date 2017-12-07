@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OrganismeService } from '../services/organisme.service';
 import { AuthService } from '../services/auth.service';
 import { Organisme } from '../public/organisme';
+import {Role} from "../public/user";
 
 @Component({
   selector: 'app-organismes-page',
@@ -14,7 +15,7 @@ export class OrganismesPageComponent implements OnInit {
   public orgs: Array<Organisme>;
 
 
-  constructor(protected orgService: OrganismeService, private router: Router) {
+  constructor(protected orgService: OrganismeService, private login: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -33,6 +34,6 @@ export class OrganismesPageComponent implements OnInit {
 
   protected canCreate()
   {
-    return true;
+    return this.login.getUser().user_type == Role.director;
   }
 }

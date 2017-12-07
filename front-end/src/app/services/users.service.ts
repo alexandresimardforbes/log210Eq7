@@ -26,20 +26,24 @@ export class UsersService {
   }
 
 
-  public getUsers(): Observable<Array<User>> {
+  public getUsers(): Observable<Array<any>> {
     return this.authHttp.get(Config.apiPath + '/users', {headers: this.myHeader})
     .map((response: Response) => response.json());
   }
 
-  public getUser(id: number): Observable<User>
+  public getUser(id: number): Observable<any>
   {
     return this.authHttp.get(Config.apiPath + `/users/${id}`, {headers: this.myHeader}).map((response: Response) => response.json());
     //return _.cloneDeep(this.users.find(e => e.id == id));
   }
 
-  public setUser(user: User)
+  public setUser(user: User): Observable<any>
   {
-    this.users[this.users.findIndex(e => e.id == user.id)] = _.cloneDeep(user);
+    let header = _.cloneDeep(this.myHeader);
+    let id = user.id;
+    header.append('Session-user-id', localStorage.getItem('userid').toString());
+    _.unset(user, 'id');
+    return this.authHttp.patch(Config.apiPath + `/users/${id}`, {user: user}, {headers: header}).map((response: Response) => response.json());
   }
 
   public createUser(user: User):  Observable<any>

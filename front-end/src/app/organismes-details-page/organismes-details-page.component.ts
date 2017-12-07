@@ -3,6 +3,8 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { OrganismeService } from '../services/organisme.service';
 import { AuthService } from '../services/auth.service';
 import { Organisme } from '../public/organisme';
+import {Role} from "../public/user";
+
 @Component({
   selector: 'app-organismes-details-page',
   templateUrl: './organismes-details-page.component.html',
@@ -40,8 +42,8 @@ export class OrganismesDetailsPageComponent implements OnInit {
     this.router.navigate(['organismes', this.org.id, 'pointDeServices']);
   }
 
-  canModify()
+  protected canModify()
   {
-    return true;
+    return this.login.getUser().user_type == Role.director;
   }
 }

@@ -10,3 +10,12 @@
   background-image: none;
   border-color: #d9534f;
 }
+
+.diploma-wrapper{
+  display: flex;
+  margin: 0 100px 10px 100px;
+}
+
+.table-wrapper{
+  margin: 0 100px 10px 100px;
+}

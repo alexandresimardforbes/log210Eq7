@@ -3,6 +3,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import {Local} from "../public/local";
 import {LocalService} from "../services/local.service";
+import {Role} from "../public/user";
 
 @Component({
   selector: 'app-local-details-page',
@@ -30,7 +31,10 @@ export class LocalDetailsPageComponent implements OnInit {
 
   onSubmit()
   {
-    if(+this.route.snapshot.paramMap.get('local') === -1) this.localService.create(this.local, this.org, this.pds).subscribe(r => this.local = r);
+    if(+this.route.snapshot.paramMap.get('local') === -1) {
+      this.local.point_service_id = this.pds;
+      this.localService.create(this.local, this.org, this.pds).subscribe(r => this.local = r);
+    }
     else this.localService.update(this.local, this.org, this.pds).subscribe(r => this.local = r);
   }
 
@@ -43,9 +47,9 @@ export class LocalDetailsPageComponent implements OnInit {
     this.router.navigate(['organismes', this.org, 'pointDeServices', this.pds, 'locaux']);
   }
 
-  canModify()
+  protected canModify()
   {
-    return true;
+    return this.login.getUser().user_type == Role.director;
   }
 
 }

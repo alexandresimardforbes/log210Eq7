@@ -9,10 +9,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let l of locaux; index as i" (click)="onlocalClicked(l)">
+      <tr *ngFor="let l of locaux; index as i" (click)="onlocalClicked(i+1)">
         <th scope="row">{{i+1}}</th>
-        <td>{{l.nom}}</td>
-        <td>{{l.nombre_de_places}}</td>
+        <td>{{l.name}}</td>
+        <td>{{l.nbPlace}}</td>
       </tr>
       </tbody>
     </table>

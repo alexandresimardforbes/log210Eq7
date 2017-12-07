@@ -26,6 +26,7 @@ import { NbThemeModule } from '@nebular/theme';
 
 
 const appRoutes: Routes = [
+  { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'users/:org', component: UsersPageComponent, canActivate: [AuthGuard] },
   { path: 'user/:id/:org', component: UserDetailsPageComponent, canActivate: [AuthGuard] },
@@ -39,7 +40,6 @@ const appRoutes: Routes = [
   { path: 'organismesReferents/:id', component: OrganismeReferentDetailsPageComponent, canActivate: [AuthGuard] },
   { path: 'organismesReferents/:orgRef/referents/:id', component: ReferentDetailsPageComponent, canActivate: [AuthGuard] },
   { path: 'organismesReferents/:orgRef/referents', component: ReferentPageComponent, canActivate: [AuthGuard] },
-  { path: '',   redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   /* { path: '**', component: PageNotFoundComponent } */
 ];
 

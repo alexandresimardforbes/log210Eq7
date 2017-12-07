@@ -3,21 +3,21 @@
     <form>
       <div class="form-group">
         <label for="nom">Nom</label>
-        <input [(ngModel)]="local.nom" #nom="ngModel" type="text" class="form-control" id="nom" name="nom"
+        <input [(ngModel)]="local.name" #nom="ngModel" type="text" class="form-control" id="nom" name="nom"
                required>
       </div>
       <div class="form-group">
         <label for="nombre_de_places">Nombre de places</label>
-        <input [(ngModel)]="local.nombre_de_places" #nombre_de_places="ngModel" type="text" class="form-control" id="nombre_de_places" name="nombre_de_places"
+        <input [(ngModel)]="local.nbPlace" #nombre_de_places="ngModel" type="text" class="form-control" id="nombre_de_places" name="nombre_de_places"
                required>
       </div>
       <div class="form-group">
         <label for="type_services">Type de services</label>
-        <input [(ngModel)]="local.type_services" #type_services="ngModel" type="text" class="form-control" id="type_services" name="type_services"
+        <input [(ngModel)]="local.typeService" #type_services="ngModel" type="text" class="form-control" id="type_services" name="type_services"
                required>
       </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary m-1" (click)="onSubmit()">save</button>
+        <button type="submit" class="btn btn-primary m-1" (click)="onSubmit()" [disabled]='!canModify()'>save</button>
         <button class="btn btn-default m-1" (click)="onReset()">reset</button>
         <button class="btn btn-default m-1" (click)="goBack()">back</button>
       </div>
