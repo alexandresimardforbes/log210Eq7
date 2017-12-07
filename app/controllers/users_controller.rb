@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   end
 
   def json_response(object, status = :ok)
-    render json: object, status: status, except: %i[password_digest created_at
+    render json: object,:include =>{:diplomas => {},:organismes => {}} ,status: status, except: %i[password_digest created_at
                                                     updated_at]
   end
 

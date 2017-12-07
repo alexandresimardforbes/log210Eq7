@@ -13,4 +13,8 @@ class User < ApplicationRecord
       self.activationToken = SecureRandom.urlsafe_base64.to_s
     end
   end
+
+  def getDiplomas
+    self.diplomas
+  end
 end

@@ -17,6 +17,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'simple_command'
 gem 'jwt'
+gem 'jsonapi-serializers'
 gem 'rack-cors', :require => 'rack/cors'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
