@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 
   # http: PATCH /users/:id
   def update
+    @user.diplomas.destroy_all
     if @user.update_attributes(user_params)
       json_response(@user)
     else
