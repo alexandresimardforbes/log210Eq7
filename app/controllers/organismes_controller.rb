@@ -48,7 +48,7 @@ class OrganismesController < ApplicationController
   end
 
   def json_response(object, status = :ok)
-    render json: object, status: status, except: %i[created_at
+    render json: object,:include =>{:users => {}} ,status: status, except: %i[created_at
                                                     updated_at]
   end
 
