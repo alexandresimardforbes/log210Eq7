@@ -18,6 +18,9 @@ class UsersController < ApplicationController
     new_user = User.new(user_params)
     if permission_to_create?(new_user.user_type)
       if new_user.save
+        if !params[:user][:organisme_id].nil?
+        new_user.organismes << Organisme.find(params[:user][:organisme_id])
+        end
         json_response(new_user)
       else
         render json: { errors: new_user.errors }, status: :bad_request
@@ -29,6 +32,7 @@ class UsersController < ApplicationController
 
   # http: PATCH /users/:id
   def update
+    @user.diplomas.destroy_all
     if @user.update_attributes(user_params)
       json_response(@user)
     else
@@ -53,11 +57,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :first_name, :last_name, :user_type, :disable)
+                                 :first_name, :last_name, :user_type, :disable,
+                                 :address, :phone_c, :phone_m,
+                                 :phone_b, diplomas_attributes: [  :name, :date ])
   end
 
   def json_response(object, status = :ok)
-    render json: object, status: status, except: %i[password_digest created_at
+    render json: object,:include =>{:diplomas => {},:organismes => {}} ,status: status, except: %i[password_digest created_at
                                                     updated_at]
   end
 

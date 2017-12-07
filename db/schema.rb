@@ -12,6 +12,23 @@
 
 ActiveRecord::Schema.define(version: 20171201163114) do
 
+  create_table "diplomas", force: :cascade do |t|
+    t.string "name"
+    t.string "date"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "locals", force: :cascade do |t|
+    t.string "name"
+    t.integer "nbPlace"
+    t.string "typeService"
+    t.integer "point_service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "organisme_referents", force: :cascade do |t|
     t.string "nom_organisme_ref"
     t.string "telephone"
@@ -43,6 +60,11 @@ ActiveRecord::Schema.define(version: 20171201163114) do
     t.boolean "disable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "organismes_users", id: false, force: :cascade do |t|
+    t.integer "organisme_id"
+    t.integer "user_id"
   end
 
   create_table "point_services", force: :cascade do |t|
